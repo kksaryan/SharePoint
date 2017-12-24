@@ -6,7 +6,7 @@ import { Dropdown, IDropdown, DropdownMenuItemType, IDropdownOption } from 'offi
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { ISelectableOption } from "office-ui-fabric-react/lib/utilities/selectableOption/SelectableOption.types";
-import pnp, { LibraryConfiguration } from "sp-pnp-js";
+import pnp from 'sp-pnp-js';
 
 
 
@@ -29,12 +29,9 @@ export default class Feedback extends React.Component<{}, IFeedbackSates>{
 
     }
     componentWillMount() {
-        pnp.setup({ sp: { baseUrl: "https://devsyno.sharepoint.com" } });
-        // GET /_api/web/lists/getByTitle('Tasks')
-        pnp.sp.web.lists.getByTitle("Categories").get().then(r => {
-
-            console.log(r);
-        });
+        pnp.sp.web.lists.ensure("Categories").then(r=>{
+            console.log(r.data)
+        })
     }
     public render() {
         return (

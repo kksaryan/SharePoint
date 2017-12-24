@@ -1,8 +1,7 @@
-export interface IFeedbackProps {
-    categories: string;
-    subcategory:string;
-    feedbackTitle:string;
-    feedbackDiscription:string;
+import { ISelectableOption } from "office-ui-fabric-react/lib/utilities/selectableOption/SelectableOption.types";
 
+export interface IFeedbackProps {
+  categories: ISelectableOption[];
+  subcategories:ISelectableOption[];
   }
   
