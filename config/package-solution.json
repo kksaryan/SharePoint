@@ -3,7 +3,7 @@
   "solution": {
     "name": "test-app-client-side-solution",
     "id": "34bfff6e-3d7b-40fd-88af-90f65fec35ac",
-    "version": "1.0.0.0",
+    "version": "2.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true
   },

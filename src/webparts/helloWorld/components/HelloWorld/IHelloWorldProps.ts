@@ -1,4 +1,5 @@
 export interface IHelloWorldProps {
-  description: string;
-
-}
+  categories: {key:string,text:string,selected:boolean}[]
+  subcategories:{key:string,text:string,selected:boolean,category:string}[]
+  }
+  

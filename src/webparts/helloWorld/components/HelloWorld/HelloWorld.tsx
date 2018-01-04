@@ -4,12 +4,38 @@ import { IHelloWorldProps } from './IHelloWorldProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import Feedback from '../Feedback/Feedback';
 
+import pnp from 'sp-pnp-js';
+
 
 export default class HelloWorld extends React.Component<IHelloWorldProps, {}> {
+
   public render(): React.ReactElement<IHelloWorldProps> {
+    const categories =  pnp.sp.web.lists.getByTitle("Categories").items.get()
+    .then(respnse => {
+       return respnse.map(field => {
+           return {
+               key: field.ID,
+               text: field.Title,
+               selected:false,
+           }
+       }
+       )
+   })
+
+   const subcategories = pnp.sp.web.lists.getByTitle("subCategories").items.get().then(respnse => {
+    return respnse.map(field => {
+        return {
+            key: field.ID,
+            text: field.Title,
+            category: field.CategoryId,
+            selected:false,
+        }
+    }
+    )
+}) 
     return (
       <div>
-        <Feedback />
+        {/* <Feedback /> */}
       </div>
       // <div className={ styles.helloWorld }>
       //   <div className={ styles.container }>

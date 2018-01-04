@@ -1,67 +1,73 @@
 import * as React from 'react';
 // import styles from './Feedback.module.scss';
-import { IFeedbackSates } from './IFeedbackState';
+import { IFeedbackSates,IOption } from './IFeedbackState';
 import { escape } from '@microsoft/sp-lodash-subset';
-import { Dropdown, IDropdown, DropdownMenuItemType, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
+import {
+    ComboBox,
+    IComboBoxProps,
+    IComboBoxOption,
+    VirtualizedComboBox
+  } from 'office-ui-fabric-react/lib/ComboBox';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { ISelectableOption } from "office-ui-fabric-react/lib/utilities/selectableOption/SelectableOption.types";
 import pnp from 'sp-pnp-js';
 
 
+export interface IFeedbackProps {
+    categories: IComboBoxOption[];//{key:string,text:string,selected:boolean}[];
+    subcategories:{key:string,text:string,selected:boolean,category:string}[];
+    }
 
-const _options: ISelectableOption[] = [
-    { key: 'Header', text: 'Caregories', itemType: DropdownMenuItemType.Header },
-    { key: 'A', text: 'Option a', selected: true },
-    { key: 'B', text: 'Option b' },
-    { key: 'C', text: 'Option c' },
-    { key: 'D', text: 'Option d' },
-    { key: 'E', text: 'Option e' },
-    { key: 'divider_2', text: '-', itemType: DropdownMenuItemType.Divider }
-]
-
-export default class Feedback extends React.Component<{}, IFeedbackSates>{
+    
+export default class Feedback extends React.Component<IFeedbackProps> {
+    private scaleOptions: IComboBoxOption[] = [];
     constructor(props) {
         super(props);
-
-
-        // this.state = { categories:
+       
 
     }
+    
+    
     componentWillMount() {
-        pnp.sp.web.lists.ensure("Categories").then(r=>{
-            console.log(r.data)
-        })
+         
+        // console.log(this.props.categories);
+        // console.log(this.props.categories);
+        // console.log(this.props.subcategories)
+        // categories.map((cat)=>{
+        //     this.scaleOptions.push({  
+        //         key:cat.key,text:cat.text
+        //     })
+        // })
     }
     public render() {
+
+        console.log(this.props.categories);
+        console.log(this.props.subcategories);
+
+        let {categories}= this.props;
         return (
             <div>
-                <Dropdown
-                    className='ms-Dropdown'
-                    placeHolder='Select an Option'
-                    label='Select Category'
-                    id='ddCategory'
-                    ariaLabel='Select Category'
-                    options={_options}
-                />
-                <Dropdown
-                    className='ms-Dropdown'
-                    placeHolder='Select a Subcategory'
-                    label='Select Sub Category'
-                    id='ddsubCategory'
-                    ariaLabel='Select Sub Category'
-                    options={
-                        [
-                            { key: 'Header', text: 'Sub Caregories', itemType: DropdownMenuItemType.Header },
-                            { key: 'A', text: 'Option a' },
-                            { key: 'B', text: 'Option b' },
-                            { key: 'C', text: 'Option c' },
-                            { key: 'D', text: 'Option d' },
-                            { key: 'E', text: 'Option e' },
-                            { key: 'divider_2', text: '-', itemType: DropdownMenuItemType.Divider }
-                        ]
-                    }
-                />
+ <ComboBox
+          defaultSelectedKey='C'
+          label='Select Category'
+          id='cmbbox1'
+          ariaLabel='Basic ComboBox example'
+          allowFreeform={ true }
+          autoComplete='on'
+          options={categories}
+        />
+{/* <ComboBox
+          defaultSelectedKey='C'
+          label='Basic uncontrolled example (allowFreeform: T, AutoComplete: T):'
+          id='cmbbox2'
+          ariaLabel='Basic ComboBox example'
+          allowFreeform={ true }
+          autoComplete='on'
+          options={this.scaleOptions} */}
+       
+              
+              
                 <TextField
                     label='Feedback Title' id="txtFeedbackTitle"
                 />
